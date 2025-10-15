@@ -2,10 +2,10 @@ import io
 from fastapi import APIRouter, UploadFile, Form, Depends, Request, HTTPException
 from sqlalchemy.orm import Session
 from PIL import Image
-from ..database import get_db
-from ..models import Product
-from ..embeddings import embed_image
-from ..qdrant_utils import qdrant_client, COLLECTION_NAME
+from database import get_db
+from models import Product
+from embeddings import embed_image
+from qdrant_utils import qdrant_client, COLLECTION_NAME
 
 router = APIRouter()
 

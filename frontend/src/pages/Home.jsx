@@ -14,14 +14,15 @@ export default function Home() {
     searchState.results?.filter((r) => (r.similarity * 100) >= minScore) || [];
 
   return (
-    <div className="bg-gray-50 text-gray-800 font-sans min-h-screen">
-      <main className="container mx-auto p-4 md:p-8">
+    // ✨ Add flex and flex-col to make this a vertical flex container
+    <div className="bg-gray-50 text-gray-800 font-sans min-h-screen flex flex-col">
+      {/* ✨ Add flex-grow to make this section expand and fill available space */}
+      <main className="container mx-auto p-4 md:p-8 flex-grow">
         <header className="text-center mb-10">
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900">Visual Product Search</h1>
           <p className="text-lg text-gray-600 mt-2">
             Find visually similar products by uploading an image.
           </p>
-          
         </header>
 
         {/* Image Upload Form */}
@@ -39,6 +40,12 @@ export default function Home() {
           />
         </section>
       </main>
+      
+      {/* Optional: A footer will now automatically stick to the bottom */}
+      {/* <footer className="text-center p-4 bg-gray-100 border-t">
+          Visual Search&copy; 2025
+      </footer> 
+      */}
     </div>
   );
 }

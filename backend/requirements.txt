@@ -10,3 +10,4 @@ Pillow
 torch
 transformers
 requests
+qdrant-client

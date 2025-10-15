@@ -103,16 +103,9 @@ This endpoint receives the uploaded image file and processes it for similarity s
 | Model | OpenAI CLIP |
 | Vector DB | Qdrant |
 | Relational DB | PostgreSQL |
-| Hosting | (Optional) Docker / Cloud platform |
 
 ---
-
-## 5. Future Enhancements
-
-- Add text-based (caption) search using CLIP text encoder.
-- Implement caching for frequently searched embeddings.
-- Enable user-defined embedding storage collections.
-- Introduce feedback-based re-ranking for better personalization.
+### 5. OUTPUT
 
 
 

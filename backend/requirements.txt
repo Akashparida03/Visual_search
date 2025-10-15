@@ -2,8 +2,6 @@ fastapi
 uvicorn[standard]
 gunicorn
 sqlalchemy
-psycopg2-binary
-pgvector
 python-dotenv
 python-multipart
 Pillow

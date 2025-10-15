@@ -1,7 +1,5 @@
 import React from 'react';
 
-// --- SVG Icons (included in the same file for simplicity) ---
-
 const SpinnerIcon = () => (
     <svg
         className="animate-spin h-5 w-5 text-white"
@@ -59,9 +57,6 @@ const XCircleIcon = () => (
         <line x1="9" y1="9" x2="15" y2="15"></line>
     </svg>
 );
-
-
-// --- Main Image Uploader Component ---
 
 export default function ImageUploader({ onSearch, setIsLoading }) {
     const [imagePreview, setImagePreview] = React.useState(null);
@@ -140,10 +135,8 @@ export default function ImageUploader({ onSearch, setIsLoading }) {
     // Helper: Fetch image blob from URL
     const fetchImageBlob = async (url) => {
         try {
-            // Using a CORS proxy for development/demonstration.
-            // In a real application, you might handle CORS on your server.
-            const proxiedUrl = `https://cors-anywhere.herokuapp.com/${url}`;
-            const res = await fetch(proxiedUrl);
+           
+            const res = await fetch(url);
             if (!res.ok) throw new Error("Unable to fetch image from URL.");
             const blob = await res.blob();
             return new File([blob], "image_from_url.jpg", { type: blob.type });
@@ -178,7 +171,7 @@ export default function ImageUploader({ onSearch, setIsLoading }) {
             const formData = new FormData();
             formData.append("image", fileToUpload);
             
-            // NOTE: The endpoint is a placeholder. Replace with your actual API endpoint.
+            // The endpoint is not replaced as I am not able to deploy the backend and only for base url i have not created .env file
             const response = await fetch("http://127.0.0.1:8000/search/image", {
                 method: "POST",
                 body: formData,

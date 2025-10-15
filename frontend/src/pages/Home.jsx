@@ -13,7 +13,7 @@ export default function Home() {
     searchState.results?.filter((r) => r.similarity * 100 >= minScore) || [];
 
   return (
-    <div className="bg-gray-50 text-gray-800 font-sans flex flex-col">
+    <div className="bg-gray-50 text-gray-800 font-sans flex flex-row">
       {/* ✨ Add flex, flex-col, and items-center to center all content */}
       <main className="container mx-auto p-4 md:p-8 flex-grow flex flex-col items-center">
         <header className="text-center mb-10">

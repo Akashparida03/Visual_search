@@ -3,7 +3,10 @@ from PIL import Image
 from transformers import CLIPModel, CLIPProcessor
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
-model = CLIPModel.from_pretrained("openai/clip-vit-base-patch32").to(device)
+
+# Load the model and immediately convert it to half-precision
+model = CLIPModel.from_pretrained("openai/clip-vit-base-patch32").half().to(device)
+
 processor = CLIPProcessor.from_pretrained("openai/clip-vit-base-patch32", use_fast=True)
 
 def embed_image(img: Image.Image):

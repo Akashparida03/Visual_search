@@ -5,10 +5,10 @@ from fastapi import APIRouter, UploadFile, Form, HTTPException, Depends
 from sqlalchemy.orm import Session
 from PIL import Image
 from qdrant_client import models
-from ..database import get_db
-from ..models import Product
-from ..embeddings import embed_image
-from ..qdrant_utils import qdrant_client, COLLECTION_NAME
+from database import get_db
+from models import Product
+from embeddings import embed_image
+from qdrant_utils import qdrant_client, COLLECTION_NAME
 
 router = APIRouter()
 IMAGES_DIR = "static/images"

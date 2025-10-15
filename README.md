@@ -1,67 +1,118 @@
-Image Similarity Search Application Architecture
-This document outlines the architecture of the image similarity search application, detailing the frontend and backend components and their interactions.
+# 🖼️  Visual Product Matcher
 
-1. Frontend
-The frontend is responsible for the user interface, allowing users to upload an image (either as a file or via a URL) and view the matching product results.
+This document outlines the architecture of the **Image Similarity Search Application**, describing both the **frontend** and **backend** components and how they interact to deliver image-based product search.
 
-Image Upload and Preview
-When a user uploads an image file from their device:
+---
 
-File Selection: The user selects an image file through an input field (<input type="file">).
+## 1. Frontend
 
-Image Preview: The FileReader API is used to read the selected file.
+The **frontend** provides the user interface for uploading images (via file or URL) and visualizing the matched product results.
 
-The readAsDataURL() method converts the image file into a base64-encoded string (a data URL).
+### Image Upload and Preview
 
-This data URL is stored in the component's state.
+When a user uploads an image file:
 
-The state change triggers a re-render, displaying a preview of the selected image in an <img> tag.
+- **File Selection:** The user selects an image using `<input type="file">`.
+- **Image Preview:**
+  - The **FileReader API** reads the selected file.
+  - The `readAsDataURL()` method converts the file into a base64-encoded string (data URL).
+  - This data URL is stored in the component’s state.
+  - Updating the state triggers a re-render, showing the image preview inside an `<img>` tag.
+- **API Request:** The image file (as a File object) is then sent to the **backend API** for processing via `fetch`.
 
-API Request: The image file (as a File object) is sent to the backend API for processing.
+### URL-Based Image Upload
 
-URL-based Image Upload
 When a user provides an image URL:
 
-URL Input: The user enters an image URL into a text input field.
+- **URL Input:** The user enters the image URL in a text input field.
+- **Image Fetching:**
+  - The frontend makes a `fetch` request to retrieve the image.
+- **Blob Conversion:** The fetched response is converted to a **Blob** object.
+- **API Request:** The Blob is sent to the backend API, simulating a standard file upload.
 
-Image Fetching: The frontend makes a fetch request to the provided URL.
+---
 
-To handle potential CORS issues, this request might be routed through a proxy or require the server hosting the image to have permissive CORS headers.
+## 2. Backend
 
-Blob Conversion: The fetched image response is converted into a Blob object.
+The **backend** is built using **FastAPI**, and it performs the main logic of identifying similar products from a vector database.
 
-API Request: This Blob is then sent to the backend API, simulating a file upload.
+### API Endpoint
 
-2. Backend
-The backend is a FastAPI application that handles the core logic of finding similar products based on an input image.
+A FastAPI endpoint (`/search-image`) handles image uploads:
 
-API Endpoint
-A FastAPI endpoint is exposed to accept image uploads. This endpoint receives the image as a file.
+This endpoint receives the uploaded image file and processes it for similarity search.
 
-Image Processing and Embedding
-CLIP Model: A pretrained CLIP (Contrastive Language-Image Pre-training) model is used to generate a vector embedding for the uploaded image. This embedding is a numerical representation of the image's semantic content.
+### Image Processing and Embedding
 
-Vector Search with Qdrant
-Querying Qdrant: The generated image embedding is used to query a Qdrant vector database.
+- **Model Used:** Pretrained **CLIP** (Contrastive Language–Image Pre-training) model.
+- **Workflow:**
+  - The image is loaded using Pillow or TorchVision transforms.
+  - CLIP encodes the image into a high-dimensional vector (embedding).
+  - This vector represents the semantic meaning of the image.
 
-Similarity Search: Qdrant performs a similarity search (e.g., using cosine similarity) to find the vectors in its index that are closest to the query vector.
 
-Retrieving IDs: The search returns a list of product IDs and their corresponding similarity scores for the top matching items.
+---
 
-Data Retrieval from PostgreSQL
-Fetching Metadata: The product IDs retrieved from Qdrant are used to query a PostgreSQL database.
+### Vector Search with Qdrant
 
-Product Details: This query fetches the complete product metadata, such as the product name, description, price, and its own image URL.
+- **Querying Qdrant:**
+  - The generated embedding is used to query the **Qdrant vector database**.
+- **Similarity Metric:** Cosine similarity is used to find similarity.
+- **Results:** Qdrant returns top matching product IDs  with similarity scores.
 
-Filtering and Response
-Similarity Score Calculation: The raw similarity score from Qdrant is multiplied by 100 to convert it into a percentage.
 
-Filtering: This percentage is then compared against the similarity threshold provided by the user through the filter bar on the frontend. Products with a similarity score below the threshold are filtered out.
+---
 
-Final Response: The backend constructs and returns a JSON response containing a list of the filtered, similar products. Each item in the list includes:
+### Data Retrieval from PostgreSQL
 
-Product metadata (name, description, etc.)
+- **Metadata Fetching:** Using product IDs from Qdrant, the system queries PostgreSQL for complete metadata.
+- **Fields Retrieved:** Product name, description, price, and image URL.
 
-Product image URL
 
-Similarity score
+---
+
+### Filtering and Response Construction
+
+- **Similarity Score:** Multiply Qdrant’s score by 100 → percentage format.
+- **Threshold Filtering:** Exclude items below the user-specified similarity threshold.
+- **Final Response:** Return filtered items as JSON.
+-   Product metadata (name, description, category, price)
+-   Product image URL
+-   Similarity score
+
+
+---
+
+## 3. Data Flow Summary
+
+1. **User uploads image ➜** Image file or URL processed in frontend.
+2. **Frontend ➜ Backend:** Image sent to FastAPI endpoint.
+3. **FastAPI ➜ CLIP:** Generate image embedding.
+4. **CLIP ➜ Qdrant:** Similarity search returns product IDs.
+5. **Qdrant ➜ PostgreSQL:** Fetch product metadata.
+6. **Backend ➜ Frontend:** Return JSON of similar items above threshold.
+
+---
+
+## 4. Technology Stack
+
+| Component | Technology |
+|------------|-------------|
+| Frontend | React.js, Tailwind CSS |
+| Backend | FastAPI (Python) |
+| Model | OpenAI CLIP |
+| Vector DB | Qdrant |
+| Relational DB | PostgreSQL |
+| Hosting | (Optional) Docker / Cloud platform |
+
+---
+
+## 5. Future Enhancements
+
+- Add text-based (caption) search using CLIP text encoder.
+- Implement caching for frequently searched embeddings.
+- Enable user-defined embedding storage collections.
+- Introduce feedback-based re-ranking for better personalization.
+
+
+

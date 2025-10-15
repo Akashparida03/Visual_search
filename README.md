@@ -105,7 +105,26 @@ This endpoint receives the uploaded image file and processes it for similarity s
 | Relational DB | PostgreSQL |
 
 ---
+
+## Backend
+<img width="1920" height="1020" alt="image" src="https://github.com/user-attachments/assets/7ff727e9-87cc-40cc-b807-c367eae028c2" />
+
+## Frontend
+https://visual-search-red.vercel.app/
+
+
 ### 5. OUTPUT
+
+
+<img width="1920" height="1020" alt="image" src="https://github.com/user-attachments/assets/5178725c-aeb2-4815-95ef-63e3246b64a7" />
+
+<img width="1920" height="1020" alt="image" src="https://github.com/user-attachments/assets/357770b3-fa8e-456c-adce-fd78bf66e87a" />
+
+<img width="1920" height="1020" alt="image" src="https://github.com/user-attachments/assets/00d5408d-67cd-4ded-905e-8819712a223c" />
+
+<img width="1920" height="1020" alt="image" src="https://github.com/user-attachments/assets/31d69b9e-7823-4a32-a1d3-f46cc964e7d9" />
+
+<img width="1920" height="1020" alt="image" src="https://github.com/user-attachments/assets/b2c8fd2f-96a4-4402-8c01-acbf527c4234" />
 
 
 

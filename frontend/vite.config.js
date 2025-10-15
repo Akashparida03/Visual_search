@@ -1,8 +1,12 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
-
-// https://vite.dev/config/
+// ✅ Minimal and stable config for Vercel + Tailwind v3
 export default defineConfig({
-  plugins: [react(),],
+  plugins: [react()],
+  build: {
+    rollupOptions: {
+      external: [], // keep empty unless explicitly needed
+    },
+  },
 })

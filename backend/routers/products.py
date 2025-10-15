@@ -1,5 +1,5 @@
 import os
-import uuid
+from datetime import datetime
 import io
 from fastapi import APIRouter, UploadFile, Form, HTTPException, Depends
 from sqlalchemy.orm import Session
@@ -26,9 +26,11 @@ async def add_product(
     Adds a new product by saving its metadata to PostgreSQL and its
     image embedding to the Qdrant vector database.
     """
+
+
     # --- Step 1: Save image and metadata to PostgreSQL ---
     file_extension = os.path.splitext(image.filename)[1]
-    unique_filename = f"{uuid.uuid4()}{file_extension}"
+    unique_filename = f"{datetime.now().strftime('%Y%m%d%H%M%S%f')}{file_extension}"
     image_path = os.path.join(IMAGES_DIR, unique_filename)
 
     content = await image.read()

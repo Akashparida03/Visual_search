@@ -172,11 +172,11 @@ export default function ImageUploader({ onSearch, setIsLoading }) {
             formData.append("image", fileToUpload);
             
             // The endpoint is not replaced as I am not able to deploy the backend and only for base url i have not created .env file
-            const response = await fetch("http://127.0.0.1:8000/search/image", {
+            const response = await fetch("https://visual-product-search-api.onrender.com/search/image", {
                 method: "POST",
                 body: formData,
             });
-            
+            //As I am deploying free tire I have to change it so instead of env i gave the base url directly
             const result = await response.json();
             if (!response.ok) throw new Error(result.detail || "Search request failed.");
 

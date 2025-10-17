@@ -19,7 +19,8 @@ export default function AddProduct() {
 
     const formData = new FormData(e.target);
     try {
-      const response = await fetch("http://127.0.0.1:8000/product/add", {
+      //as base url changing so i give it directly
+      const response = await fetch("https://visual-product-search-api.onrender.com/product/add", {
         method: "POST",
         body: formData,
       });

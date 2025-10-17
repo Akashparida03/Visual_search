@@ -106,8 +106,6 @@ This endpoint receives the uploaded image file and processes it for similarity s
 
 ---
 
-## Backend
-<img width="1920" height="1020" alt="image" src="https://github.com/user-attachments/assets/7ff727e9-87cc-40cc-b807-c367eae028c2" />
 
 ## Frontend
 https://visual-search-red.vercel.app/

@@ -32,7 +32,7 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 app.include_router(products.router, prefix="/product", tags=["Products"])
 app.include_router(search.router, prefix="/search", tags=["Search"])
 
-@app.get("/", tags=["Health Check"])
+@app.get("/")
 def read_root():
     return {"message": "API is running."}
 
